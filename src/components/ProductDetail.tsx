@@ -7,6 +7,9 @@ import Typography from "@mui/material/Typography";
 
 import { DATA } from "../Data";
 
+import { useDispatch } from "react-redux";
+import { addItem, delItem } from "../redux/actions";
+
 const ProductDetail = () => {
   const [cartBtn, setCartBtn] = useState("Add to Cart");
   const { prodId }: any = useParams();
@@ -14,10 +17,14 @@ const ProductDetail = () => {
   const prodDetail = DATA.filter((x) => x.id === prodIdInt);
   const product = prodDetail[0];
 
+  const dispatch = useDispatch();
+
   const handleCart = (product: any) => {
     if (cartBtn === "Add to Cart") {
+      dispatch(addItem(product));
       setCartBtn("Remove to Cart");
     } else {
+      dispatch(delItem(product));
       setCartBtn("Add to Cart");
     }
   };
